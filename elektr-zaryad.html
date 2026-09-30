@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elektr zaryad — 8-sinf fizika</title>
+<style>
+/* ===== Ranglar (yorug' va qorong'i rejim) ===== */
+:root{--bg:#eef3ff;--card:#fff;--ink:#14213d;--sub:#4a5a85;--head:#14213d;--acc:#ffc233;--line:#d5def5;--ok:#1a9f5b;--no:#d62839;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1630;--card:#1a2545;--ink:#eaf0ff;--sub:#a9b7de;--head:#070d20;--line:#2c3a66}}
+:root[data-theme="dark"]{--bg:#0e1630;--card:#1a2545;--ink:#eaf0ff;--sub:#a9b7de;--head:#070d20;--line:#2c3a66}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.55 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+header{background:var(--head);color:#fff;padding:22px 16px 14px}
+h1{margin:0 0 4px;font-size:clamp(28px,6vw,42px);letter-spacing:.5px}
+header p{margin:0 0 12px;color:#c9d5f7}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button{flex:1 1 200px;font:inherit;font-weight:700;padding:12px 14px;border:0;border-radius:12px;background:#27366b;color:#fff;cursor:pointer;text-align:left}
+nav button.on{background:var(--acc);color:#14213d}
+main{max-width:860px;margin:0 auto;padding:16px}
+.sec{display:none}.sec.on{display:block}
+h2{font-size:clamp(24px,5vw,32px);margin:8px 0}
+.card{background:var(--card);border-radius:18px;padding:16px;margin:14px 0;border:2px solid var(--line)}
+.card h3{margin:0 0 8px;font-size:22px}
+canvas{width:100%;height:auto;display:block;background:#f8faff;border-radius:12px;border:2px solid #c9d5f7}
+.ctl,.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{font:inherit;font-weight:700;padding:10px 16px;border:0;border-radius:10px;background:#2b6fff;color:#fff;cursor:pointer}
+.btn.b2{background:#e5383b}.btn.b3{background:#5c677d}.btn:disabled{opacity:.4}
+.btn:focus-visible,nav button:focus-visible,.opt:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+select{font:inherit;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px}
+.info div{background:var(--bg);border-radius:10px;padding:8px 10px}
+.info b{display:block;font-size:26px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.p{background:#e5383b}.n{background:#8d99ae}.e{background:#2b6fff}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:17px}
+td,th{border:1px solid var(--line);padding:6px 8px;text-align:left}
+.q{margin:12px 0}.q p{margin:4px 0;font-weight:700}
+.opt{display:block;width:100%;text-align:left;font:inherit;margin:6px 0;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.opt.ok{border-color:var(--ok);background:#d9f5e6;color:#0b4f2d}.opt.no{border-color:var(--no);background:#fde1e4;color:#7a1220}
+.q .fb{font-weight:400;min-height:1.4em}
+.res{font-size:26px;font-weight:700;margin-top:10px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+ <h1>⚡ Elektr zaryad</h1>
+ <p>8-sinf fizika · Reja bandini tanlang:</p>
+ <nav id="nav">
+  <button data-s="s1" class="on">1. Atom tuzilishi</button>
+  <button data-s="s2">2. Elektr zaryad haqida tushuncha</button>
+  <button data-s="s3">3. Elektron, proton va ularning zaryadi</button>
+  <button data-s="s4">✅ Yakuniy test</button>
+ </nav>
+</header>
+<main>
+
+<!-- ============ 1-BO'LIM ============ -->
+<section class="sec on" id="s1">
+ <h2>1. Atom tuzilishi</h2>
+ <div class="card"><p>Atom yadro va uning atrofida aylanuvchi elektronlardan iborat. Yadro protonlar (+) va neytronlardan (zaryadsiz) tuzilgan. Elektronlar (−) yadro atrofida orbitalarda harakatlanadi. Neytral atomda protonlar soni elektronlar soniga teng.</p>
+ <p><span class="dot p"></span>proton (+) &nbsp; <span class="dot n"></span>neytron (0) &nbsp; <span class="dot e"></span>elektron (−)</p></div>
+ <div class="card"><h3>Animatsiya: litiy atomi</h3><canvas id="a1" width="640" height="320"></canvas><div class="ctl" data-for="a1"></div></div>
+ <div class="card"><h3>Simulyatsiya: elementni tanlang</h3>
+  <select id="el" aria-label="Element"><option value="0">Vodorod (H)</option><option value="1">Geliy (He)</option><option value="2">Litiy (Li)</option><option value="3">Uglerod (C)</option><option value="4">Kislorod (O)</option></select>
+  <canvas id="m1" width="640" height="320" style="margin-top:10px"></canvas>
+  <div class="info"><div>Proton<b id="ip" style="color:#e5383b"></b></div><div>Neytron<b id="in" style="color:#8d99ae"></b></div><div>Elektron<b id="ie" style="color:#2b6fff"></b></div></div></div>
+ <div class="card"><h3>O'zingizni tekshiring</h3><div id="q1"></div></div>
+</section>
+
+<!-- ============ 2-BO'LIM ============ -->
+<section class="sec" id="s2">
+ <h2>2. Elektr zaryad haqida tushuncha</h2>
+ <div class="card"><p>Elektr zaryad — jismlarning elektr o'zaro ta'sirga kirishish qobiliyatini ifodalovchi fizik kattalik. Belgisi q, birligi kulon (Kl). Ikki xil zaryad bor: musbat (+) va manfiy (−). Bir xil ishorali zaryadlar itarishadi, qarama-qarshi ishorali zaryadlar tortishadi. Jismlar bir-biriga ishqalanganda elektrlanadi (elektronlar bir jismdan ikkinchisiga o'tadi).</p></div>
+ <div class="card"><h3>Animatsiya: shisha tayoqchani ipakka ishqalash</h3><canvas id="a2" width="640" height="320"></canvas><div class="ctl" data-for="a2"></div></div>
+ <div class="card"><h3>Simulyatsiya 1: ikkita zaryadli sharcha</h3><canvas id="m2" width="640" height="320"></canvas>
+  <div class="row"><button class="btn" id="b1">1-sharcha: +</button><button class="btn b2" id="b2">2-sharcha: +</button></div></div>
+ <div class="card"><h3>Simulyatsiya 2: yengil qog'oz parchalari</h3><canvas id="m3" width="640" height="320"></canvas>
+  <div class="row"><button class="btn" id="b3">Tayoqchani elektrlash</button></div></div>
+ <div class="card"><h3>O'zingizni tekshiring</h3><div id="q2"></div></div>
+</section>
+
+<!-- ============ 3-BO'LIM ============ -->
+<section class="sec" id="s3">
+ <h2>3. Elektron, proton va ularning zaryadi</h2>
+ <div class="card"><p>Elektronning zaryadi manfiy: e = −1,6·10⁻¹⁹ Kl, massasi ≈ 9,1·10⁻³¹ kg. Protonning zaryadi musbat: +1,6·10⁻¹⁹ Kl, massasi ≈ 1,67·10⁻²⁷ kg. Neytron zaryadsiz. 1,6·10⁻¹⁹ Kl — eng kichik (elementar) zaryad. Jismning zaryadi elementar zaryadga karrali: q = N·e. Elektron yo'qotgan atom musbat ion, elektron biriktirgan atom manfiy ion bo'ladi.</p></div>
+ <div class="card"><h3>Zarralarni solishtiramiz</h3>
+  <table><tr><th>Zarra</th><th>Zaryad</th><th>Massa</th></tr>
+  <tr><td><span class="dot e"></span>Elektron</td><td>−1,6·10⁻¹⁹ Kl</td><td>9,1·10⁻³¹ kg</td></tr>
+  <tr><td><span class="dot p"></span>Proton</td><td>+1,6·10⁻¹⁹ Kl</td><td>1,67·10⁻²⁷ kg</td></tr>
+  <tr><td><span class="dot n"></span>Neytron</td><td>0</td><td>≈ 1,67·10⁻²⁷ kg</td></tr></table>
+  <canvas id="a3" width="640" height="320"></canvas><div class="ctl" data-for="a3"></div></div>
+ <div class="card"><h3>Simulyatsiya: atomga elektron qo'shing yoki oling</h3>
+  <canvas id="m4" width="640" height="320"></canvas>
+  <div class="row"><button class="btn" id="add">➕ Elektron qo'shish</button><button class="btn b2" id="rem">➖ Elektron olib tashlash</button></div>
+  <div class="info" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div>Protonlar<b id="zp"></b></div><div>Elektronlar<b id="ze"></b></div><div>Holat<b id="zs" style="font-size:21px"></b></div></div>
+  <p id="zq" style="font-size:21px;font-weight:700"></p></div>
+ <div class="card"><h3>O'zingizni tekshiring</h3><div id="q3"></div></div>
+</section>
+
+<!-- ============ YAKUNIY TEST ============ -->
+<section class="sec" id="s4">
+ <h2>Yakuniy test</h2>
+ <div class="card"><div id="q4"></div><div class="res" id="res"></div></div>
+</section>
+</main>
+
+<script>
+/* ===== Yordamchi funksiyalar ===== */
+const $=s=>document.querySelector(s), TAU=Math.PI*2;
+const fmt=x=>String(x).replace('.',',');              // 1.6 -> 1,6
+
+/* ===== Bo'limlar (reja) bo'yicha o'tish ===== */
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#nav button,.sec').forEach(e=>e.classList.remove('on'));
+  b.classList.add('on'); $('#'+b.dataset.s).classList.add('on'); window.scrollTo(0,0);
+});
+
+/* ===== Sahnalar: har bir canvas uchun vaqt (t) va yoqilgan/o'chirilgan holat ===== */
+const scenes={};
+function scene(id,draw){
+  const cv=$('#'+id); scenes[id]={cv,c:cv.getContext('2d'),draw,t:0,on:true};
+  const box=document.querySelector('.ctl[data-for="'+id+'"]');
+  if(box){ // Boshlash / To'xtatish / Qayta boshlash tugmalari
+    [['▶ Boshlash','btn',s=>s.on=true],['⏸ To\'xtatish','btn b2',s=>s.on=false],['↺ Qayta boshlash','btn b3',s=>{s.t=0;s.on=true}]]
+    .forEach(([txt,cls,fn])=>{const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=()=>fn(scenes[id]);box.appendChild(b)});
+  }
+}
+let last=performance.now();
+function loop(now){
+  const dt=Math.min(.05,(now-last)/1000); last=now;
+  for(const k in scenes){const s=scenes[k]; if(!s.cv.offsetParent)continue; // yashirin canvasni chizmaymiz
+    if(s.on)s.t+=dt; s.c.clearRect(0,0,640,320); s.draw(s.c,s.t);}
+  requestAnimationFrame(loop);
+}
+
+/* ===== Chizish funksiyalari ===== */
+function ball(c,x,y,r,col,txt,tc){c.fillStyle=col;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();
+  if(txt){c.fillStyle=tc||'#fff';c.font='bold '+Math.round(r*1.4)+'px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(txt,x,y+1);}}
+function label(c,t,x,y,sz,col,al){c.fillStyle=col||'#14213d';c.font='bold '+(sz||20)+'px sans-serif';c.textAlign=al||'center';c.textBaseline='middle';c.fillText(t,x,y);}
+function arrow(c,x1,x2,y,col){c.strokeStyle=c.fillStyle=col;c.lineWidth=5;c.beginPath();c.moveTo(x1,y);c.lineTo(x2,y);c.stroke();
+  const d=Math.sign(x2-x1);c.beginPath();c.moveTo(x2,y);c.lineTo(x2-14*d,y-10);c.lineTo(x2-14*d,y+10);c.fill();}
+
+/* Atom modeli: Z proton, N neytron, E elektron; leave={i,r} — bitta elektron radiusini o'zgartirish */
+function atom(c,cx,cy,Z,N,E,t,leave){
+  const R=[58,102], sh=[Math.min(E,2),Math.max(0,E-2)];
+  c.lineWidth=1.5;c.strokeStyle='#b7c5ee';
+  R.forEach((r,i)=>{if(sh[i]>0||(leave&&i==1)){c.beginPath();c.arc(cx,cy,r,0,TAU);c.stroke();}});
+  const arr=[];let p=Z,n=N;                           // protonlar va neytronlarni aralashtiramiz
+  while(p||n){if(p&&p>=n){arr.push(1);p--}else{arr.push(0);n--}}
+  arr.forEach((isP,i)=>{const r=7.5*Math.sqrt(i+.5),a=i*2.4;
+    ball(c,cx+r*Math.cos(a),cy+r*Math.sin(a),8.5,isP?'#e5383b':'#8d99ae',isP?'+':'');});
+  for(let i=0;i<E;i++){const s=i<2?0:1,idx=s?i-2:i,cnt=sh[s];
+    let r=R[s];if(leave&&leave.i==i)r=leave.r;
+    const a=t*(s?.9:1.6)+idx*TAU/cnt; ball(c,cx+r*Math.cos(a),cy+r*Math.sin(a),8,'#2b6fff','−');}
+}
+
+/* ===== 1-bo'lim ===== */
+scene('a1',(c,t)=>{atom(c,320,160,3,4,3,t);label(c,'Litiy: 3 proton, 4 neytron, 3 elektron',320,300,18);});
+const EL=[['H',1,0],['He',2,2],['Li',3,4],['C',6,6],['O',8,8]];   // [belgi, proton, neytron]
+scene('m1',(c,t)=>{const [s,z,n]=EL[$('#el').value];atom(c,320,160,z,n,z,t);
+  label(c,s+' atomi',70,30,24);label(c,'Neytral: q = 0',570,30,20,'#1a9f5b');
+  $('#ip').textContent=z;$('#in').textContent=n;$('#ie').textContent=z;});
+
+/* ===== 2-bo'lim ===== */
+// Ishqalanish: shisha tayoqcha ipak ustida harakatlanadi, elektronlar ipakka o'tadi
+scene('a2',(c,t)=>{const T=t%10,pr=Math.min(1,T/8),rx=320+90*Math.sin(T*2);
+  c.fillStyle='#b48ae0';c.fillRect(120,215,400,60);label(c,'Ipak mato',320,295,18);
+  c.fillStyle='#bfe6f5';c.strokeStyle='#5aa9c8';c.lineWidth=3;c.beginPath();c.roundRect(rx-100,165,200,50,25);c.fill();c.stroke();
+  label(c,'Shisha tayoqcha',rx,140,18);
+  let moved=0;
+  for(let i=0;i<6;i++){const q=Math.max(0,Math.min(1,pr*7-i)),sx=rx-75+i*30,ex=sx-((rx-100)-(rx-100))+0;
+    const x=sx,y=190+q*70+(q>0?Math.sin(q*3)*0:0);if(q>=1)moved++;ball(c,x,y,8,'#2b6fff','−');}
+  for(let i=0;i<moved;i++)label(c,'+',rx-80+i*32,190,0,'#e5383b');
+  c.font='bold 26px sans-serif';
+  label(c,moved>2?'Tayoqcha: musbat (+)  ·  Ipak: manfiy (−)':'Elektronlar tayoqchadan ipakka o\'tmoqda...',320,40,20,moved>2?'#e5383b':'#14213d');});
+// Ikki sharcha
+let sg=[1,1];
+function tog(i,id){sg[i]*=-1;const b=$('#'+id);b.textContent=(i+1)+'-sharcha: '+(sg[i]>0?'+':'−');b.className='btn'+(sg[i]>0?'':' b2');}
+$('#b1').onclick=()=>tog(0,'b1');$('#b2').onclick=()=>tog(1,'b2');$('#b2').className='btn';
+scene('m2',(c,t)=>{const same=sg[0]==sg[1],dir=same?-1:1,o=dir*(8+8*Math.sin(t*3));
+  const x1=180+o,x2=460-o,col=s=>s>0?'#e5383b':'#2b6fff';
+  ball(c,x1,170,34,col(sg[0]),sg[0]>0?'+':'−');ball(c,x2,170,34,col(sg[1]),sg[1]>0?'+':'−');
+  const L=same?[x1-40,x1-100,x2+40,x2+100]:[x1+40,x1+100,x2-40,x2-100];   // kuch strelkalari
+  arrow(c,L[0],L[1],170,'#1a9f5b');arrow(c,L[2],L[3],170,'#1a9f5b');
+  label(c,same?'Bir xil ishora — ITARISHADI':'Qarama-qarshi ishora — TORTISHADI',320,50,26,'#14213d');
+  label(c,'F',(L[0]+L[1])/2,140,20,'#1a9f5b');label(c,'F',(L[2]+L[3])/2,140,20,'#1a9f5b');});
+// Qog'oz parchalari
+let ch=false;const bits=Array.from({length:9},(_,i)=>({x:200+i*30,y:270,ph:i}));
+$('#b3').onclick=()=>{ch=!ch;$('#b3').textContent=ch?'Zaryadsizlantirish':'Tayoqchani elektrlash';};
+scene('m3',(c,t)=>{c.fillStyle='#e9d8b4';c.fillRect(0,285,640,35);
+  c.fillStyle=ch?'#e5383b':'#bfe6f5';c.beginPath();c.roundRect(190,40,260,36,18);c.fill();
+  label(c,ch?'Tayoqcha elektrlangan (+ + + +)':'Tayoqcha zaryadsiz',320,25,20);
+  bits.forEach(b=>{const ty=ch?92+(b.ph%3)*7:272,k=ch?.06+b.ph*.004:.15;b.y+=(ty-b.y)*k;
+    const j=ch&&Math.abs(b.y-ty)<3?Math.sin(t*20+b.ph)*1.5:0;
+    c.fillStyle='#fff';c.strokeStyle='#9aa7c7';c.lineWidth=2;c.fillRect(b.x-9,b.y+j-4,18,8);c.strokeRect(b.x-9,b.y+j-4,18,8);});});
+
+/* ===== 3-bo'lim ===== */
+// Elektron atomdan chiqib, litiy musbat ionga aylanadi
+scene('a3',(c,t)=>{const T=t%9,r=T<2?102:102+(T-2)/3*230,gone=T>4.5;
+  atom(c,320,160,3,4,3,t,{i:2,r:Math.min(r,330)});
+  label(c,gone?'Li⁺ — musbat ion (q = +1,6·10⁻¹⁹ Kl)':'Neytral atom (q = 0)',320,300,20,gone?'#e5383b':'#1a9f5b');});
+// Zaryad hisoblagich: Z = 3 (litiy), elektronlar soni 0..6
+let E3=3;const Z3=3;
+function upd3(){const d=Z3-E3,q=fmt((Math.abs(d)*1.6).toFixed(1));
+  $('#zp').textContent=Z3;$('#ze').textContent=E3;
+  $('#zs').textContent=d==0?'Neytral atom':d>0?'Musbat ion':'Manfiy ion';
+  $('#zq').textContent=d==0?'q = 0':`q = N·e = (${d>0?'+':'−'}${Math.abs(d)})·1,6·10⁻¹⁹ Kl = ${d>0?'+':'−'}${q}·10⁻¹⁹ Kl`;
+  $('#add').disabled=E3>=6;$('#rem').disabled=E3<=0;}
+$('#add').onclick=()=>{E3++;upd3()};$('#rem').onclick=()=>{E3--;upd3()};upd3();
+scene('m4',(c,t)=>{atom(c,320,160,Z3,4,E3,t);const d=Z3-E3;
+  label(c,d==0?'Neytral':d>0?'Musbat ion':'Manfiy ion',90,30,22,d==0?'#1a9f5b':d>0?'#e5383b':'#2b6fff');});
+
+/* ===== Savollar: [savol, [variantlar], to'g'ri javob indeksi] ===== */
+function quiz(el,items,final){
+  let done=0,score=0;el.innerHTML='';if(final)$('#res').innerHTML='';
+  items.forEach((it,k)=>{const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<p>${k+1}. ${it[0]}</p>`;const fb=document.createElement('p');fb.className='fb';
+    it[1].forEach((o,j)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;const ok=j==it[2];
+        b.classList.add(ok?'ok':'no');if(!ok)d.querySelectorAll('.opt')[it[2]].classList.add('ok');
+        fb.textContent=ok?`✅ To'g'ri!`:`❌ Noto'g'ri. To'g'ri javob yashil rangda.`;
+        if(ok)score++;done++;
+        if(final&&done==items.length){const r=$('#res');
+          r.innerHTML=`Natija: ${score} / ${items.length} ball ${score==5?'🏆 Ajoyib!':score>=3?'👍 Yaxshi!':'📖 Mavzuni yana bir bor ko\'rib chiqing.'}<br>`;
+          const again=document.createElement('button');again.className='btn';again.textContent='↺ Testni qayta topshirish';
+          again.onclick=()=>quiz(el,items,true);r.appendChild(again);}};
+      d.appendChild(b);});d.appendChild(fb);el.appendChild(d);});
+}
+quiz($('#q1'),[[`Atom yadrosi qanday zarralardan tuzilgan?`,[`Faqat elektronlardan`,`Proton va neytronlardan`,`Proton va elektronlardan`],1],
+  [`Uglerod atomida 6 ta proton bor. Neytral holatda nechta elektron bor?`,[`0`,`12`,`6`],2]]);
+quiz($('#q2'),[[`Bir xil ishorali zaryadlar bir-biriga qanday ta'sir qiladi?`,[`Tortishadi`,`Itarishadi`,`Ta'sirlashmaydi`],1],
+  [`Elektr zaryadning birligi qaysi?`,[`Nyuton`,`Volt`,`Kulon (Kl)`],2]]);
+quiz($('#q3'),[[`Elektronning zaryadi nimaga teng?`,[`+1,6·10⁻¹⁹ Kl`,`−1,6·10⁻¹⁹ Kl`,`0`],1],
+  [`Atom bitta elektronini yo'qotsa, u nimaga aylanadi?`,[`Manfiy ionga`,`Neytral atomga`,`Musbat ionga`],2]]);
+quiz($('#q4'),[[`Neytronning zaryadi qanday?`,[`Musbat`,`Zaryadsiz (0)`,`Manfiy`],1],
+  [`Jismlar ishqalanganda nima uchun elektrlanadi?`,[`Elektronlar bir jismdan ikkinchisiga o'tadi`,`Protonlar o'tadi`,`Jism massasi yo'qoladi`],0],
+  [`Jismda 2 ta ortiqcha elektron bor. Uning zaryadi qancha?`,[`+3,2·10⁻¹⁹ Kl`,`−1,6·10⁻¹⁹ Kl`,`−3,2·10⁻¹⁹ Kl`],2],
+  [`Qarama-qarshi ishorali zaryadlar qanday ta'sirlashadi?`,[`Tortishadi`,`Itarishadi`,`Ta'sirlashmaydi`],0],
+  [`Elektron massasi proton massasidan qanday?`,[`Taxminan 1800 marta kichik`,`Bir xil`,`Taxminan 1800 marta katta`],0]],true);
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
