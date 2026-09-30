@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8-sinf fizika — Jismlarning zaryadlanishi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef5ff;color:#17233c;line-height:1.6}
+header{background:linear-gradient(135deg,#164e9b,#2878d8);color:white;padding:28px 18px;text-align:center}
+header h1{margin:0 0 8px;font-size:30px}
+header p{margin:0;font-size:17px}
+.container{max-width:1050px;margin:auto;padding:20px}
+.card{background:white;border-radius:16px;padding:22px;margin:20px 0;box-shadow:0 5px 18px #0001}
+h2{color:#164e9b;border-left:6px solid #2878d8;padding-left:12px}
+h3{color:#235b9e}
+.info{background:#edf6ff;border-left:5px solid #2878d8;padding:12px 15px;border-radius:8px}
+.formula{font-size:21px;text-align:center;background:#fff8df;padding:12px;border-radius:10px;font-weight:bold}
+.sim{background:#f7f9fc;border:2px solid #dce7f5;border-radius:14px;padding:18px;margin-top:18px}
+button{border:0;border-radius:9px;padding:10px 15px;margin:5px;background:#2878d8;color:white;font-size:15px;cursor:pointer}
+button:hover{background:#164e9b}
+canvas{display:block;width:100%;max-width:900px;height:300px;background:#10233e;border-radius:12px;margin:15px auto}
+.legend{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.dot{display:inline-block;width:15px;height:15px;border-radius:50%;vertical-align:middle}
+.red{background:#ef4444}.blue{background:#3b82f6}.yellow{background:#facc15}.gray{background:#9ca3af}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
+.note{background:#fff7e6;border:1px solid #f1cf86;padding:12px;border-radius:9px}
+footer{text-align:center;padding:25px;color:#52627b}
+ul{padding-left:22px}
+</style>
+</head>
+<body>
+<header>
+<h1>⚡ Jismlarning zaryadlanishi</h1>
+<p>8-sinf fizika | Interaktiv dars va simulyatsiyalar</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Reja</h2>
+<ol>
+<li>Elektr zaryadi tushunchasi.</li>
+<li>Zaryadlarning tabiatda mavjudligi.</li>
+<li>Zaryadlangan jismlarning o‘zaro ta’siri.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>1. Elektr zaryadi tushunchasi</h2>
+<p><b>Elektr zaryadi</b> — jismlarning elektromagnit o‘zaro ta’sirini belgilovchi fizik kattalik. Zaryad ikki xil bo‘ladi: <b>musbat (+)</b> va <b>manfiy (−)</b>.</p>
+<div class="info">
+<strong>Esda tuting:</strong> elektron manfiy zaryadga, proton esa musbat zaryadga ega. Neytral jismda musbat va manfiy zaryadlar miqdori teng bo‘ladi.
+</div>
+<div class="formula">q — elektr zaryadi; o‘lchov birligi: kulon (C)</div>
+
+<div class="sim">
+<h3>🎮 Simulyatsiya: zaryadlangan shar</h3>
+<p>Tugmalar orqali sharga elektron qo‘shing yoki undan elektron olib tashlang.</p>
+<button onclick="addElectron()">− Elektron qo‘shish</button>
+<button onclick="removeElectron()">+ Elektron olib tashlash</button>
+<button onclick="neutralize()">Neytrallash</button>
+<canvas id="chargeCanvas" width="900" height="300"></canvas>
+<p id="chargeText" style="text-align:center;font-weight:bold"></p>
+</div>
+</div>
+
+<div class="card">
+<h2>2. Zaryadlarning tabiatda mavjudligi</h2>
+<p>Tabiatdagi jismlar atomlardan tashkil topgan. Atom tarkibida <b>proton</b>, <b>neytron</b> va <b>elektron</b> mavjud.</p>
+<div class="grid">
+<div class="note"><b>Proton (+)</b><br>Musbat zaryad tashiydi va atom yadrosida joylashadi.</div>
+<div class="note"><b>Elektron (−)</b><br>Manfiy zaryad tashiydi va yadro atrofida joylashadi.</div>
+<div class="note"><b>Neytron (0)</b><br>Elektr zaryadiga ega emas va yadroda joylashadi.</div>
+</div>
+<p>Jism elektronlarini yo‘qotsa — <b>musbat</b> zaryadlanadi. Elektron orttirsa — <b>manfiy</b> zaryadlanadi.</p>
+
+<div class="sim">
+<h3>🎮 Simulyatsiya: atom modeli</h3>
+<p>Elektronlarning yadro atrofidagi harakatini kuzating.</p>
+<button onclick="toggleAtom()">▶ Harakatni boshlash/to‘xtatish</button>
+<canvas id="atomCanvas" width="900" height="300"></canvas>
+<div class="legend">
+<span><i class="dot red"></i> Proton (+)</span>
+<span><i class="dot gray"></i> Neytron (0)</span>
+<span><i class="dot blue"></i> Elektron (−)</span>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>3. Zaryadlangan jismlarning o‘zaro ta’siri</h2>
+<p>Zaryadlangan jismlar bir-biriga elektr kuchi bilan ta’sir qiladi.</p>
+<div class="grid">
+<div class="info"><b>Bir xil zaryadlar</b><br>Bir-birini <b>itaradi</b>.<br>+ ↔ + &nbsp;&nbsp; − ↔ −</div>
+<div class="info"><b>Har xil zaryadlar</b><br>Bir-birini <b>tortadi</b>.<br>+ → ← −</div>
+</div>
+
+<div class="sim">
+<h3>🎮 Simulyatsiya: zaryadlangan sharlarning ta’siri</h3>
+<p>Har bir sharning zaryadini tanlang. Sharlar avtomatik ravishda tortishadi yoki itarishadi.</p>
+<button onclick="setCharges(1,1)">+ va +</button>
+<button onclick="setCharges(-1,-1)">− va −</button>
+<button onclick="setCharges(1,-1)">+ va −</button>
+<button onclick="setCharges(-1,1)">− va +</button>
+<button onclick="resetBalls()">Qayta boshlash</button>
+<canvas id="forceCanvas" width="900" height="300"></canvas>
+<p id="forceText" style="text-align:center;font-weight:bold"></p>
+</div>
+
+<div class="sim">
+<h3>✨ Animatsiya: zaryadlarning harakati</h3>
+<p>Musbat va manfiy zaryadlar orasidagi tortishish hamda bir xil zaryadlarning itarilishini ko‘ring.</p>
+<canvas id="animCanvas" width="900" height="260"></canvas>
+</div>
+</div>
+
+<div class="card">
+<h2>📌 Xulosa</h2>
+<ul>
+<li>Elektr zaryadi musbat va manfiy bo‘ladi.</li>
+<li>Elektron manfiy, proton musbat zaryadga ega.</li>
+<li>Jism elektron olsa — manfiy, elektron yo‘qotsa — musbat zaryadlanadi.</li>
+<li>Bir xil zaryadlar itarishadi.</li>
+<li>Har xil zaryadlar tortishadi.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>🧠 Tekshirish savollari</h2>
+<ol>
+<li>Elektr zaryadi qanday turlarga bo‘linadi?</li>
+<li>Elektron qanday zaryadga ega?</li>
+<li>Jism qanday qilib musbat zaryadlanadi?</li>
+<li>Bir xil zaryadlangan jismlar qanday ta’sirlashadi?</li>
+<li>Har xil zaryadlangan jismlar-chi?</li>
+</ol>
+</div>
+
+</div>
+<footer>8-sinf fizika • Mavzu: Jismlarning zaryadlanishi</footer>
+
+<script>
+// 1-simulyatsiya
+const cc=document.getElementById("chargeCanvas"), cctx=cc.getContext("2d");
+let charge=0;
+function drawCharge(){
+ cctx.clearRect(0,0,900,300);
+ cctx.fillStyle="#facc15"; cctx.beginPath(); cctx.arc(450,150,82,0,Math.PI*2); cctx.fill();
+ cctx.strokeStyle="#fff"; cctx.lineWidth=4; cctx.stroke();
+ for(let i=0;i<Math.abs(charge);i++){
+   let a=i*0.75, r=105;
+   let x=450+Math.cos(a)*r, y=150+Math.sin(a)*r;
+   cctx.fillStyle=charge>0?"#ef4444":"#3b82f6";
+   cctx.beginPath();cctx.arc(x,y,9,0,Math.PI*2);cctx.fill();
+ }
+ cctx.fillStyle="#17233c"; cctx.font="bold 20px Arial";
+ cctx.textAlign="center";
+ cctx.fillText(charge===0?"NEYTRAL":charge>0?"MUSBAT ZARYAD":"MANFIY ZARYAD",450,265);
+ document.getElementById("chargeText").textContent="Zaryad holati: "+(charge===0?"neytral":charge>0?"musbat":"manfiy")+" | Shartli zaryad: "+charge;
+}
+function addElectron(){if(charge>-8)charge--;drawCharge()}
+function removeElectron(){if(charge<8)charge++;drawCharge()}
+function neutralize(){charge=0;drawCharge()}
+drawCharge();
+
+// Atom
+const ac=document.getElementById("atomCanvas"), actx=ac.getContext("2d");
+let atomRun=true, angle=0;
+function toggleAtom(){atomRun=!atomRun}
+function atomLoop(){
+ actx.clearRect(0,0,900,300);
+ let cx=450,cy=150;
+ actx.strokeStyle="#6b8bb8";
+ for(let r of [55,90,125]){actx.beginPath();actx.arc(cx,cy,r,0,Math.PI*2);actx.stroke()}
+ actx.fillStyle="#ef4444"; for(let i=0;i<3;i++){let a=i*2.1;actx.beginPath();actx.arc(cx+Math.cos(a)*17,cy+Math.sin(a)*17,11,0,Math.PI*2);actx.fill()}
+ actx.fillStyle="#9ca3af";for(let i=0;i<3;i++){let a=i*2.1+1;actx.beginPath();actx.arc(cx+Math.cos(a)*17,cy+Math.sin(a)*17,11,0,Math.PI*2);actx.fill()}
+ [55,90,125].forEach((r,ring)=>{
+   for(let i=0;i<2;i++){
+     let a=angle*(ring+1)*0.7+i*Math.PI;
+     let x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;
+     actx.fillStyle="#3b82f6";actx.beginPath();actx.arc(x,y,8,0,Math.PI*2);actx.fill();
+   }
+ });
+ if(atomRun)angle+=0.025;
+ requestAnimationFrame(atomLoop);
+}
+atomLoop();
+
+// Force simulation
+const fc=document.getElementById("forceCanvas"), fctx=fc.getContext("2d");
+let q1=1,q2=-1,x1=300,x2=600;
+function setCharges(a,b){q1=a;q2=b;x1=300;x2=600}
+function resetBalls(){x1=300;x2=600;q1=1;q2=-1}
+function forceLoop(){
+ fctx.clearRect(0,0,900,300);
+ let same=q1===q2;
+ let direction=same?-1:1;
+ x1 += direction*0.45; x2 -= direction*0.45;
+ if(x1<180||x1>380){direction*=-1}
+ if(x2<520||x2>720){direction*=-1}
+ x1=Math.max(180,Math.min(380,x1));x2=Math.max(520,Math.min(720,x2));
+ fctx.strokeStyle="#789";fctx.lineWidth=3;fctx.beginPath();fctx.moveTo(x1+50,150);fctx.lineTo(x2-50,150);fctx.stroke();
+ fctx.fillStyle=q1>0?"#ef4444":"#3b82f6";fctx.beginPath();fctx.arc(x1,150,50,0,Math.PI*2);fctx.fill();
+ fctx.fillStyle=q2>0?"#ef4444":"#3b82f6";fctx.beginPath();fctx.arc(x2,150,50,0,Math.PI*2);fctx.fill();
+ fctx.fillStyle="white";fctx.font="bold 32px Arial";fctx.textAlign="center";fctx.fillText(q1>0?"+":"−",x1,160);fctx.fillText(q2>0?"+":"−",x2,160);
+ fctx.fillStyle="#17233c";fctx.font="bold 20px Arial";
+ document.getElementById("forceText").textContent=same?"Bir xil zaryadlar → ITARISH":"Har xil zaryadlar → TORTISHISH";
+ requestAnimationFrame(forceLoop);
+}
+forceLoop();
+
+// Extra animation
+const an=document.getElementById("animCanvas"), act=an.getContext("2d");
+let t=0;
+function anim(){
+ act.clearRect(0,0,900,260);
+ let y=130, gap=180+Math.sin(t)*55;
+ let ax=450-gap/2,bx=450+gap/2;
+ act.fillStyle="#ef4444";act.beginPath();act.arc(ax,y,38,0,Math.PI*2);act.fill();
+ act.fillStyle="#3b82f6";act.beginPath();act.arc(bx,y,38,0,Math.PI*2);act.fill();
+ act.fillStyle="white";act.font="bold 28px Arial";act.textAlign="center";act.fillText("+",ax,y+10);act.fillText("−",bx,y+10);
+ act.fillStyle="#fff";act.font="18px Arial";act.fillText("Tortishish",450,220);
+ t+=0.025; requestAnimationFrame(anim);
+}
+anim();
+</script>
+</body>
+</html>
