@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kulon qonuni — 8-sinf fizika</title>
+<style>
+:root{--bg:#eef3ff;--card:#fff;--ink:#14213d;--line:#d5def5;--acc:#ffc233;--ok:#1a9f5b;--no:#d62839}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.55 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+header{background:#14213d;color:#fff;padding:22px 16px 14px}
+h1{margin:0 0 4px;font-size:clamp(26px,6vw,40px)}
+header p{margin:0 0 12px;color:#c9d5f7}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button{flex:1 1 200px;font:inherit;font-weight:700;padding:12px 14px;border:0;border-radius:12px;background:#27366b;color:#fff;cursor:pointer;text-align:left}
+nav button.on{background:var(--acc);color:#14213d}
+main{max-width:860px;margin:0 auto;padding:16px}
+.sec{display:none}.sec.on{display:block}
+h2{font-size:clamp(23px,5vw,31px);margin:8px 0}
+.card{background:var(--card);border-radius:18px;padding:16px;margin:14px 0;border:2px solid var(--line)}
+.card h3{margin:0 0 8px;font-size:22px}
+.formula{font-size:28px;font-weight:700;text-align:center;background:#fff7dc;border-radius:12px;padding:8px;color:#14213d}
+canvas{width:100%;height:auto;display:block;background:#f8faff;border-radius:12px;border:2px solid #c9d5f7}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{font:inherit;font-weight:700;padding:10px 16px;border:0;border-radius:10px;background:#2b6fff;color:#fff;cursor:pointer}
+.btn.b2{background:#e5383b}.btn.b3{background:#5c677d}
+.sl{display:block;margin:10px 0 0}.sl input{width:100%;height:30px}
+.out{background:#eef3ff;border-radius:10px;padding:10px 12px;margin-top:10px;font-weight:700;color:#14213d;word-break:break-word}
+.q{margin:12px 0}.q p{margin:4px 0;font-weight:700}
+.opt{display:block;width:100%;text-align:left;font:inherit;margin:6px 0;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:#fff;color:#14213d;cursor:pointer}
+.opt.ok{border-color:var(--ok);background:#d9f5e6;color:#0b4f2d}.opt.no{border-color:var(--no);background:#fde1e4;color:#7a1220}
+.res{font-size:26px;font-weight:700;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+ <h1>⚡ Zaryadlarning o'zaro ta'siri. Kulon qonuni</h1>
+ <p>8-sinf fizika · Reja:</p>
+ <nav id="nav">
+  <button data-s="s1" class="on">1. Kulon tajribalari</button>
+  <button data-s="s2">2. Kulon qonuni</button>
+  <button data-s="s3">✅ Yakuniy test</button>
+ </nav>
+</header>
+<main>
+
+<!-- ======== 1. KULON TAJRIBALARI ======== -->
+<section class="sec on" id="s1">
+ <h2>1. Kulon tajribalari</h2>
+ <div class="card"><p>Fransuz olimi Sharl Kulon 1785-yilda zaryadlangan jismlarning o'zaro ta'sir kuchini o'lchash uchun buralma tarozisini yasadi. Uning ichida ingichka ipga osilgan yengil sterjenning bir uchida zaryadlangan sharcha, ikkinchi uchida qarshi yuk bor. Unga qo'zg'almas zaryadlangan sharcha yaqinlashtirilganda sterjen itarilib, ipni buraydi. Ipning burilish burchagi kuchga to'g'ri proporsional bo'ladi. Zaryadni 2 marta kamaytirish uchun zaryadlangan sharchaga xuddi shunday zaryadsiz sharcha tekkiziladi.</p></div>
+ <div class="card"><h3>Animatsiya: buralma tarozisi</h3><canvas id="a1" width="640" height="320"></canvas><div class="ctl" data-for="a1"></div></div>
+ <div class="card"><h3>Simulyatsiya: o'zing tajriba o'tkaz</h3><canvas id="m1" width="640" height="320"></canvas>
+  <label class="sl">1-zaryad q₁: <b id="v1"></b><input type="range" id="r1" min="1" max="4" value="1"></label>
+  <label class="sl">2-zaryad q₂: <b id="v2"></b><input type="range" id="r2" min="1" max="4" value="1"></label>
+  <label class="sl">Masofa r: <b id="v3"></b><input type="range" id="r3" min="1" max="4" value="1"></label>
+  <div class="out" id="o1"></div></div>
+ <div class="card"><h3>O'zingizni tekshiring</h3><div id="q1"></div></div>
+</section>
+
+<!-- ======== 2. KULON QONUNI ======== -->
+<section class="sec" id="s2">
+ <h2>2. Kulon qonuni</h2>
+ <div class="card"><p>Kulon qonuni: ikkita nuqtaviy zaryadning o'zaro ta'sir kuchi zaryadlar modullarining ko'paytmasiga to'g'ri proporsional, ular orasidagi masofaning kvadratiga teskari proporsional. Kuch zaryadlarni tutashtiruvchi to'g'ri chiziq bo'ylab yo'nalgan, ikkala zaryadga son jihatdan teng. Bir xil ishorali zaryadlar itarishadi, qarama-qarshilari tortishadi.</p>
+ <p class="formula">F = k·|q₁|·|q₂| / r²</p>
+ <p>F — kuch (N), q — zaryad (Kl), r — masofa (m), k = 9·10⁹ N·m²/Kl² — proporsionallik koeffitsiyenti.</p></div>
+ <div class="card"><h3>Animatsiya: masofa ortsa, kuch kamayadi</h3><canvas id="a2" width="640" height="320"></canvas><div class="ctl" data-for="a2"></div></div>
+ <div class="card"><h3>Simulyatsiya: Kulon kuchini hisobla</h3><canvas id="m2" width="640" height="320"></canvas>
+  <label class="sl">Zaryad q₁: <b id="w1"></b><input type="range" id="s1q" min="-5" max="5" value="2"></label>
+  <label class="sl">Zaryad q₂: <b id="w2"></b><input type="range" id="s2q" min="-5" max="5" value="-3"></label>
+  <label class="sl">Masofa r: <b id="w3"></b><input type="range" id="s3r" min="5" max="30" value="15"></label>
+  <div class="out" id="o2"></div></div>
+ <div class="card"><h3>O'zingizni tekshiring</h3><div id="q2"></div></div>
+</section>
+
+<!-- ======== YAKUNIY TEST ======== -->
+<section class="sec" id="s3">
+ <h2>Yakuniy test</h2>
+ <div class="card"><div id="q3"></div><div class="res" id="res"></div></div>
+</section>
+</main>
+
+<script>
+/* ===== Yordamchi funksiyalar ===== */
+const $=s=>document.querySelector(s),TAU=Math.PI*2;
+const fmt=x=>String(x).replace('.',',');
+
+/* ===== Bo'limlarni almashtirish ===== */
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#nav button,.sec').forEach(e=>e.classList.remove('on'));
+  b.classList.add('on');$('#'+b.dataset.s).classList.add('on');window.scrollTo(0,0);});
+
+/* ===== Sahnalar va Boshlash / To'xtatish / Qayta boshlash tugmalari ===== */
+const scenes={};
+function scene(id,draw){
+  const cv=$('#'+id);scenes[id]={cv,c:cv.getContext('2d'),draw,t:0,on:true};
+  const box=document.querySelector('.ctl[data-for="'+id+'"]');
+  if(box)[['▶ Boshlash','btn',s=>s.on=true],['⏸ To\'xtatish','btn b2',s=>s.on=false],['↺ Qayta boshlash','btn b3',s=>{s.t=0;s.on=true}]]
+   .forEach(([txt,cls,fn])=>{const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=()=>fn(scenes[id]);box.appendChild(b)});
+}
+let last=performance.now();
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  for(const k in scenes){const s=scenes[k];if(!s.cv.offsetParent)continue;
+    if(s.on)s.t+=dt;s.c.clearRect(0,0,640,320);s.draw(s.c,s.t);}
+  requestAnimationFrame(loop);}
+
+/* ===== Chizish yordamchilari ===== */
+function ball(c,x,y,r,col,txt){c.fillStyle=col;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();
+  if(txt){c.fillStyle='#fff';c.font='bold '+Math.round(r*1.3)+'px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(txt,x,y+1);}}
+function label(c,t,x,y,sz,col,al){c.fillStyle=col||'#14213d';c.font='bold '+(sz||20)+'px sans-serif';c.textAlign=al||'center';c.textBaseline='middle';c.fillText(t,x,y);}
+function arrow(c,x1,x2,y,col){const d=Math.sign(x2-x1)||1;c.strokeStyle=c.fillStyle=col;c.lineWidth=5;
+  c.beginPath();c.moveTo(x1,y);c.lineTo(x2,y);c.stroke();c.beginPath();c.moveTo(x2+4*d,y);c.lineTo(x2-12*d,y-10);c.lineTo(x2-12*d,y+10);c.fill();}
+
+/* Buralma tarozisi (tepadan ko'rinish): phi — sterjenning burilish burchagi (gradus) */
+function tors(c,phi,note){
+  const px=320,py=175,L=125,a=phi*Math.PI/180;
+  c.strokeStyle='#8795bd';c.lineWidth=2;                       // burchak shkalasi
+  for(let d=0;d<=80;d+=10){c.beginPath();c.moveTo(px+138*Math.cos(d*Math.PI/180),py-138*Math.sin(d*Math.PI/180));
+    c.lineTo(px+150*Math.cos(d*Math.PI/180),py-150*Math.sin(d*Math.PI/180));c.stroke();}
+  c.strokeStyle='#e5383b';c.lineWidth=4;c.beginPath();c.arc(px,py,62,-a,0);c.stroke();   // burilish yoyi
+  const ax=px+L*Math.cos(a),ay=py-L*Math.sin(a),cx=px-.7*L*Math.cos(a),cy=py+.7*L*Math.sin(a);
+  c.strokeStyle='#5c677d';c.lineWidth=6;c.beginPath();c.moveTo(cx,cy);c.lineTo(ax,ay);c.stroke(); // sterjen
+  ball(c,cx,cy,10,'#8d99ae');ball(c,ax,ay,16,'#e5383b','+');       // qarshi yuk va harakatlanuvchi sharcha A
+  ball(c,px+L,py,16,'#e5383b','+');                                 // qo'zg'almas sharcha B
+  ball(c,px,py,6,'#14213d');
+  label(c,'A',ax-4,ay-26,18);label(c,'B',px+L+4,py+28,18);label(c,'ip',px-16,py+20,16,'#5c677d');
+  label(c,'φ = '+Math.round(phi)+'°',px+95*Math.cos(a/2)+20,py-95*Math.sin(a/2)-4,20,'#e5383b');
+  if(note)label(c,note,20,24,19,'#14213d','left');
+}
+
+/* ===== 1-bo'lim: Kulon tajribasi animatsiyasi (9 s sikl, 3 bosqich) ===== */
+const TG=[40,20,10],TXT=['1-tajriba: q₁ = q, q₂ = q, masofa r','2-tajriba: q₁ = q/2 (sharcha tekkizildi) → F ½','3-tajriba: q₁ = q, masofa 2r → F ¼'];
+const SUB=['Kuch F → φ = 40°','Zaryad 2 marta kam → φ = 20°','Masofa 2 marta ko\'p → φ = 10°'];
+scene('a1',(c,t)=>{const T=t%9,ph=Math.floor(T/3),tp=T%3,prev=ph?TG[ph-1]:TG[2],e=Math.min(1,tp/1.2),k=e*e*(3-2*e);
+  tors(c,prev+(TG[ph]-prev)*k,TXT[ph]);label(c,SUB[ph],320,300,22,'#1a9f5b');});
+/* Simulyatsiya: F ~ q₁·q₂ / r²,  φ ~ F */
+scene('m1',c=>{const q1=+$('#r1').value,q2=+$('#r2').value,r=+$('#r3').value,F=q1*q2/(r*r),phi=Math.min(80,10*F);
+  $('#v1').textContent=q1+' birlik';$('#v2').textContent=q2+' birlik';$('#v3').textContent=r+' birlik';
+  $('#o1').textContent='F ~ q₁·q₂/r² = '+fmt(+F.toFixed(2))+' (nisbiy birlik) → burilish φ = '+Math.round(phi)+'°'+(10*F>80?' (shkala chegarasi)':'');
+  tors(c,phi,'Burilish burchagi kuchni ko\'rsatadi');});
+
+/* ===== 2-bo'lim: Kulon qonuni animatsiyasi — masofa o'zgaradi ===== */
+scene('a2',(c,t)=>{const r=2-Math.cos(t*.9),dx=r*55,x1=320-dx,x2=320+dx,F=1/(r*r),len=16+90*F,R=22;
+  ball(c,x1,150,R,'#e5383b','+');ball(c,x2,150,R,'#e5383b','+');
+  arrow(c,x1-R-4,x1-R-4-len,150,'#1a9f5b');arrow(c,x2+R+4,x2+R+4+len,150,'#1a9f5b');
+  label(c,'F',x1-R-30-len/2,120,22,'#1a9f5b');label(c,'F',x2+R+30+len/2,120,22,'#1a9f5b');
+  c.strokeStyle='#5c677d';c.lineWidth=2;c.beginPath();c.moveTo(x1,215);c.lineTo(x2,215);c.stroke();
+  label(c,'r = '+fmt(r.toFixed(2)),320,238,22,'#14213d');
+  label(c,'F ~ 1/r² = '+fmt(F.toFixed(2))+'  (r = 1 dagi kuchga nisbatan)',320,275,20,'#e5383b');
+  label(c,'r 2 marta ortsa — F 4 marta kamayadi',320,303,18,'#1a9f5b');});
+
+/* Simulyatsiya: F = k|q₁||q₂|/r², q — mikrokulon (10⁻⁶ Kl), r — santimetr */
+scene('m2',c=>{const q1=+$('#s1q').value,q2=+$('#s2q').value,rc=+$('#s3r').value,rm=rc/100;
+  $('#w1').textContent=q1+' mkKl';$('#w2').textContent=q2+' mkKl';$('#w3').textContent=rc+' sm';
+  const F=9e9*Math.abs(q1*q2)*1e-12/(rm*rm),dx=30+rc*4.5,x1=320-dx,x2=320+dx,R=24,col=q=>q>0?'#e5383b':q<0?'#2b6fff':'#8d99ae',sg=q=>q>0?'+':q<0?'−':'0';
+  ball(c,x1,140,R,col(q1),sg(q1));ball(c,x2,140,R,col(q2),sg(q2));
+  label(c,'q₁ = '+q1+' mkKl',x1,185,18);label(c,'q₂ = '+q2+' mkKl',x2,185,18);
+  let msg='Zaryadsiz jism — kuch yo\'q';
+  if(F>0){const rep=q1*q2>0,len=Math.min(20+25*Math.sqrt(F),rep?110:dx-R-14);
+    if(rep){arrow(c,x1-R-4,x1-R-4-len,140,'#1a9f5b');arrow(c,x2+R+4,x2+R+4+len,140,'#1a9f5b');}
+    else{arrow(c,x1+R+4,x1+R+4+len,140,'#1a9f5b');arrow(c,x2-R-4,x2-R-4-len,140,'#1a9f5b');}
+    msg=rep?'Bir xil ishora — ITARISHADI':'Qarama-qarshi ishora — TORTISHADI';}
+  c.strokeStyle='#5c677d';c.lineWidth=2;c.beginPath();c.moveTo(x1,225);c.lineTo(x2,225);c.stroke();
+  label(c,'r = '+rc+' sm',320,247,20);label(c,msg,320,285,24,'#14213d');
+  const Fs=fmt(+F.toPrecision(3));
+  $('#o2').textContent='F = 9·10⁹ · '+Math.abs(q1)+'·10⁻⁶ · '+Math.abs(q2)+'·10⁻⁶ / ('+fmt(rm)+')² = '+Fs+' N';});
+
+/* ===== Savollar: [savol, [variantlar], to'g'ri javob indeksi] ===== */
+function quiz(el,items,final){
+  let done=0,score=0;el.innerHTML='';if(final)$('#res').innerHTML='';
+  items.forEach((it,k)=>{const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<p>${k+1}. ${it[0]}</p>`;const fb=document.createElement('p');
+    it[1].forEach((o,j)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;const ok=j==it[2];
+        b.classList.add(ok?'ok':'no');if(!ok)d.querySelectorAll('.opt')[it[2]].classList.add('ok');
+        fb.textContent=ok?`✅ To'g'ri!`:`❌ Noto'g'ri. To'g'ri javob yashil rangda.`;
+        if(ok)score++;done++;
+        if(final&&done==items.length){const r=$('#res');
+          r.innerHTML=`Natija: ${score} / ${items.length} ball ${score==5?'🏆 Ajoyib!':score>=3?'👍 Yaxshi!':`📖 Mavzuni qayta ko'rib chiqing.`}<br>`;
+          const a=document.createElement('button');a.className='btn';a.textContent='↺ Qayta topshirish';
+          a.onclick=()=>quiz(el,items,true);r.appendChild(a);}};
+      d.appendChild(b);});d.appendChild(fb);el.appendChild(d);});
+}
+quiz($('#q1'),[[`Kulon zaryadlar o'zaro ta'sir kuchini o'lchash uchun qaysi asbobdan foydalangan?`,[`Buralma tarozisi`,`Dinamometr`,`Elektroskop`],0],
+  [`Zaryadlardan biri 2 marta kamaysa, o'zaro ta'sir kuchi qanday o'zgaradi?`,[`2 marta ortadi`,`2 marta kamayadi`,`O'zgarmaydi`],1]]);
+quiz($('#q2'),[[`Zaryadlar orasidagi masofa 2 marta ortsa, kuch qanday o'zgaradi?`,[`2 marta kamayadi`,`4 marta ortadi`,`4 marta kamayadi`],2],
+  [`Kulon qonunidagi k koeffitsiyenti nimaga teng?`,[`9·10⁹ N·m²/Kl²`,`1,6·10⁻¹⁹ Kl`,`9,8 m/s²`],0]]);
+quiz($('#q3'),[[`Kulon qonuni formulasi qaysi?`,[`F = k·q₁·q₂·r`,`F = k·|q₁|·|q₂| / r²`,`F = k·(q₁+q₂) / r`],1],
+  [`Masofa 3 marta kamaysa, kuch qanday o'zgaradi?`,[`9 marta ortadi`,`3 marta ortadi`,`9 marta kamayadi`],0],
+  [`1-zaryadning 2-zaryadga ta'sir kuchi F bo'lsa, 2-zaryadning 1-zaryadga ta'siri qanday?`,[`F dan kichik`,`F ga teng, yo'nalishi qarama-qarshi`,`F dan katta`],1],
+  [`Kulon qonuni qanday zaryadlar uchun o'rinli?`,[`Nuqtaviy zaryadlar`,`Faqat manfiy zaryadlar`,`Faqat atomlar`],0],
+  [`q₁ = q₂ = 1 mkKl, r = 10 sm bo'lsa, F nimaga teng?`,[`9 N`,`0,9 N`,`0,09 N`],1]],true);
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
