@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8-sinf fizika — Elektr maydon</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef5ff;color:#172033;line-height:1.55}
+header{background:linear-gradient(135deg,#173b7a,#2477c8);color:white;padding:28px 20px;text-align:center}
+header h1{margin:0 0 8px;font-size:32px}
+header p{margin:0;font-size:17px}
+nav{position:sticky;top:0;z-index:10;background:#fff;box-shadow:0 2px 10px #0002;display:flex;justify-content:center;gap:8px;padding:10px;flex-wrap:wrap}
+nav button{border:0;background:#e7f0ff;color:#174d91;padding:10px 15px;border-radius:20px;cursor:pointer;font-weight:bold}
+nav button:hover{background:#cfe2ff}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:white;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 5px 18px #173b7a18}
+h2{color:#174d91;margin-top:0}
+h3{color:#2168aa}
+.definition{background:#eef7ff;border-left:5px solid #2675c8;padding:14px;border-radius:8px}
+.formula{font-size:22px;text-align:center;background:#f5f7fb;padding:15px;border-radius:12px;font-weight:bold}
+.sim{border:2px solid #c8dcf5;border-radius:15px;padding:16px;background:#fbfdff}
+canvas{width:100%;height:360px;border-radius:12px;background:#081b33;display:block}
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.controls label{font-weight:bold}
+input[type=range]{width:220px}
+.badge{display:inline-block;padding:5px 10px;border-radius:15px;background:#e6f1ff;color:#165496;font-weight:bold}
+.quiz button,.promptbox button{background:#2168aa;color:white;border:0;border-radius:9px;padding:10px 15px;cursor:pointer;margin:4px}
+.answer{margin-top:10px;font-weight:bold}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #c9d7e8;padding:9px;text-align:left}
+th{background:#eaf3ff}
+.promptbox{background:#101b2e;color:#eef6ff;padding:18px;border-radius:14px;white-space:pre-wrap;overflow:auto}
+footer{text-align:center;padding:25px;color:#53657c}
+@media(max-width:600px){header h1{font-size:25px}.container{padding:10px}canvas{height:300px}}
+</style>
+</head>
+<body>
+<header>
+<h1>⚡ Elektr maydon</h1>
+<p>8-sinf fizika • Interaktiv dars va simulyatsiyalar</p>
+</header>
+
+<nav>
+<button onclick="go('p1')">1. Elektr maydon</button>
+<button onclick="go('p2')">2. Kuch chiziqlari</button>
+<button onclick="go('p3')">3. Kuchlanganlik</button>
+<button onclick="go('quiz')">Tekshirish</button>
+<button onclick="go('prompt')">ChatGPT prompt</button>
+</nav>
+
+<main class="container">
+
+<section class="card" id="p1">
+<h2>1. Elektr maydon haqida tushuncha</h2>
+<div class="definition">
+<b>Elektr maydon</b> — elektr zaryadlari atrofida hosil bo‘ladigan va boshqa zaryadlarga elektr kuchi bilan ta’sir qiladigan fizik maydondir.
+</div>
+<p>Elektr zaryadlar ikki xil bo‘ladi: <b>musbat (+)</b> va <b>manfiy (−)</b>. Bir xil ishorali zaryadlar itarishadi, qarama-qarshi ishorali zaryadlar esa tortishadi.</p>
+<ul>
+<li>Elektr maydonni ko‘z bilan bevosita ko‘rib bo‘lmaydi.</li>
+<li>Uning mavjudligi zaryadga ta’sir qiladigan kuch orqali aniqlanadi.</li>
+<li>Maydon zaryadga yaqin joyda kuchliroq, uzoqroqda esa kuchsizroq bo‘ladi.</li>
+</ul>
+
+<div class="sim">
+<h3>🎯 Simulyatsiya: zaryadlar o‘zaro ta’siri</h3>
+<div class="controls">
+<label>1-zaryad:
+<select id="q1"><option value="1">Musbat (+)</option><option value="-1">Manfiy (−)</option></select></label>
+<label>2-zaryad:
+<select id="q2"><option value="1">Musbat (+)</option><option value="-1">Manfiy (−)</option></select></label>
+</div>
+<canvas id="c1" width="1000" height="360"></canvas>
+<p id="interaction" class="badge"></p>
+</div>
+</section>
+
+<section class="card" id="p2">
+<h2>2. Elektr maydon kuch chiziqlari</h2>
+<p><b>Elektr maydon kuch chiziqlari</b> — maydonning yo‘nalishini ko‘rsatish uchun shartli ravishda chiziladigan chiziqlardir.</p>
+<ul>
+<li>Kuch chiziqlari musbat zaryaddan tashqariga yo‘naladi.</li>
+<li>Manfiy zaryadga esa tashqaridan ichkariga yo‘naladi.</li>
+<li>Kuch chiziqlari bir-birini kesib o‘tmaydi.</li>
+<li>Chiziqlar zichroq joyda elektr maydon kuchliroq bo‘ladi.</li>
+</ul>
+
+<div class="sim">
+<h3>🧲 Animatsiya: elektr maydon kuch chiziqlari</h3>
+<div class="controls">
+<label>Zaryad:
+<select id="chargeType"><option value="1">Musbat (+)</option><option value="-1">Manfiy (−)</option></select></label>
+<label>Kuch:
+<input id="lineStrength" type="range" min="8" max="28" value="16">
+</label>
+<span id="lineVal" class="badge">16 ta</span>
+</div>
+<canvas id="c2" width="1000" height="360"></canvas>
+</div>
+</section>
+
+<section class="card" id="p3">
+<h2>3. Elektr maydon kuchlanganligi</h2>
+<p>Elektr maydonning berilgan nuqtadagi ta’sirini ifodalovchi fizik kattalik <b>elektr maydon kuchlanganligi</b> deyiladi.</p>
+<div class="formula">E = F / q</div>
+<p>Bu yerda:</p>
+<table>
+<tr><th>Belgisi</th><th>Ma’nosi</th><th>Birligi</th></tr>
+<tr><td>E</td><td>elektr maydon kuchlanganligi</td><td>N/C</td></tr>
+<tr><td>F</td><td>zaryadga ta’sir qiluvchi elektr kuchi</td><td>N</td></tr>
+<tr><td>q</td><td>sinov zaryadi</td><td>C</td></tr>
+</table>
+<p>Nuqtaviy zaryad hosil qilgan maydon uchun:</p>
+<div class="formula">E = k · |Q| / r²</div>
+<p>Bu yerda <b>k ≈ 9 · 10⁹ N·m²/C²</b>. Masofa <b>r</b> ortgani sari maydon kuchlanganligi kamayadi.</p>
+
+<div class="sim">
+<h3>📊 Interaktiv simulyatsiya: E ning masofaga bog‘liqligi</h3>
+<div class="controls">
+<label>Q zaryad:
+<input id="Q" type="range" min="1" max="10" step="1" value="5">
+<span id="Qv" class="badge">5 μC</span></label>
+<label>Masofa:
+<input id="r" type="range" min="1" max="10" step="0.5" value="2">
+<span id="rv" class="badge">2 m</span></label>
+</div>
+<canvas id="c3" width="1000" height="360"></canvas>
+<p id="eresult" class="formula"></p>
+</div>
+</section>
+
+<section class="card quiz" id="quiz">
+<h2>📝 O‘z-o‘zini tekshirish</h2>
+<p><b>1.</b> Elektr maydon nimaga ta’sir qiladi?</p>
+<button onclick="check(this,true)">Elektr zaryadlariga</button>
+<button onclick="check(this,false)">Faqat jismlarning massasiga</button>
+<div id="a1" class="answer"></div>
+
+<p><b>2.</b> Kuch chiziqlari musbat zaryadda qanday yo‘naladi?</p>
+<button onclick="check2(this,true)">Zaryaddan tashqariga</button>
+<button onclick="check2(this,false)">Zaryad tomoniga</button>
+<div id="a2" class="answer"></div>
+
+<p><b>3.</b> Elektr maydon kuchlanganligining formulasi qaysi?</p>
+<button onclick="check3(this,true)">E = F/q</button>
+<button onclick="check3(this,false)">E = q/F</button>
+<div id="a3" class="answer"></div>
+</section>
+
+<section class="card" id="prompt">
+<h2>🤖 ChatGPT uchun tayyor prompt</h2>
+<p>Quyidagi prompt orqali shu mavzuga o‘xshash interaktiv HTML dars yaratishni so‘rashingiz mumkin:</p>
+<div class="promptbox" id="promptText">Sen 8-sinf fizika fani uchun pedagogik jihatdan tushunarli, zamonaviy va interaktiv HTML dars yaratuvchi yordamchisan.
+
+Mavzu: “Elektr maydon”.
+
+Quyidagi reja asosida bitta mustaqil, internet talab qilmaydigan HTML fayl yarat:
+1. Elektr maydon haqida tushuncha.
+2. Elektr maydon kuch chiziqlari.
+3. Elektr maydon kuchlanganligi.
+
+Talablar:
+- Til: o‘zbek tili, lotin yozuvi.
+- 8-sinf o‘quvchisiga mos sodda va aniq tushuntirishlar ber.
+- Har bir bo‘limda nazariy ma’lumot, asosiy tushuncha va hayotiy misol bo‘lsin.
+- 1-bo‘limda musbat va manfiy zaryadlarning tortishishi va itarilishini animatsion simulyatsiya qil.
+- 2-bo‘limda musbat va manfiy nuqtaviy zaryadlarning elektr maydon kuch chiziqlarini harakatlanuvchi strelkalar bilan ko‘rsat. Foydalanuvchi zaryad turini va chiziqlar sonini o‘zgartira olsin.
+- 3-bo‘limda E = F/q formulasini va nuqtaviy zaryad uchun E = k|Q|/r² formulasini tushuntir. Q va r qiymatlarini slider orqali o‘zgartirish va natijani avtomatik hisoblash imkoniyati bo‘lsin.
+- Har bir simulyatsiya HTML Canvas va JavaScript yordamida ishlasin.
+- Animatsiyalar silliq va tushunarli bo‘lsin.
+- Formulalarni chiroyli ko‘rsat.
+- Dars oxirida kamida 5 ta interaktiv test ber va javobni darhol tekshir.
+- Dizayn maktab o‘quvchilariga mos, rang-barang, lekin ko‘zni charchatmaydigan bo‘lsin.
+- Telefon, planshet va kompyuter ekranlariga moslashsin.
+- Tashqi kutubxona, internet havolasi yoki server talab qilinmasin.
+- Barcha CSS va JavaScript kodlari shu bitta HTML fayl ichida bo‘lsin.
+- Faylni “elektr_maydon.html” nomi bilan saqlash mumkin bo‘ladigan to‘liq kodni ber.
+- Kodda xatolar bo‘lmasin va sahifa brauzerda darhol ishlasin.</div>
+<button onclick="copyPrompt()">📋 Promptni nusxalash</button>
+<span id="copied"></span>
+</section>
+</main>
+
+<footer>8-sinf fizika • Elektr maydon • Interaktiv o‘quv materiali</footer>
+
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function drawCircle(ctx,x,y,r,color,sign){
+ ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+ ctx.fillStyle="white";ctx.font="bold 26px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(sign,x,y);
+}
+function drawC1(){
+ const c=document.getElementById('c1'),ctx=c.getContext('2d'),a=+q1.value,b=+q2.value;
+ ctx.clearRect(0,0,c.width,c.height);
+ let x1=c.width*.28,x2=c.width*.72,y=c.height/2;
+ drawCircle(ctx,x1,y,35,a>0?"#ff5b5b":"#4b8cff",a>0?"+":"−");
+ drawCircle(ctx,x2,y,35,b>0?"#ff5b5b":"#4b8cff",b>0?"+":"−");
+ ctx.strokeStyle="#8ec5ff";ctx.lineWidth=4;ctx.setLineDash([10,8]);
+ ctx.beginPath();ctx.moveTo(x1+45,y);ctx.lineTo(x2-45,y);ctx.stroke();ctx.setLineDash([]);
+ let same=a===b;
+ interaction.textContent=same?"Bir xil ishorali zaryadlar — ITARISHADI":"Qarama-qarshi ishorali zaryadlar — TORTISHADI";
+ ctx.fillStyle="white";ctx.font="18px Arial";ctx.textAlign="center";ctx.fillText(same?"←       →":"→       ←",(x1+x2)/2,y-20);
+}
+q1.onchange=q2.onchange=drawC1;drawC1();
+
+function drawC2(){
+ const c=document.getElementById('c2'),ctx=c.getContext('2d'),type=+chargeType.value,n=+lineStrength.value;
+ ctx.clearRect(0,0,c.width,c.height);
+ let cx=c.width/2,cy=c.height/2;
+ drawCircle(ctx,cx,cy,32,type>0?"#ff5b5b":"#4b8cff",type>0?"+":"−");
+ ctx.lineWidth=2;
+ for(let i=0;i<n;i++){
+   let ang=2*Math.PI*i/n;
+   let phase=(performance.now()/700)%1;
+   let start=38,end=145;
+   let pts=[];
+   for(let rr=start;rr<end;rr+=5){
+     let rr2=rr + phase*10;
+     let x=cx+Math.cos(ang)*rr2,y=cy+Math.sin(ang)*rr2;
+     pts.push([x,y]);
+   }
+   ctx.beginPath();pts.forEach((p,j)=>j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+   ctx.strokeStyle="#79c7ff";ctx.stroke();
+   let p=pts[Math.floor(pts.length*.65)];
+   let dir=type>0?1:-1;
+   let ax=ang, tx=p[0]+Math.cos(ax)*dir*8,ty=p[1]+Math.sin(ax)*dir*8;
+   ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(tx,ty);ctx.stroke();
+ }
+ requestAnimationFrame(drawC2);
+}
+lineStrength.oninput=()=>lineVal.textContent=lineStrength.value+" ta";
+chargeType.onchange=()=>{};drawC2();
+
+function calcE(){
+ let Q=+document.getElementById('Q').value, r=+document.getElementById('r').value;
+ Qv.textContent=Q+" μC";rv.textContent=r+" m";
+ let E=9e9*(Q*1e-6)/(r*r);
+ eresult.textContent="E = "+E.toExponential(3)+" N/C";
+ let c=document.getElementById('c3'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
+ let cx=170,cy=180;
+ drawCircle(ctx,cx,cy,30,"#ff5b5b","+");
+ ctx.strokeStyle="#79c7ff";ctx.lineWidth=2;
+ for(let i=0;i<16;i++){
+   let ang=i*Math.PI/8;
+   ctx.beginPath();ctx.moveTo(cx+38*Math.cos(ang),cy+38*Math.sin(ang));
+   ctx.lineTo(cx+Math.min(230,38+r*18)*Math.cos(ang),cy+Math.min(230,38+r*18)*Math.sin(ang));ctx.stroke();
+ }
+ ctx.fillStyle="white";ctx.font="18px Arial";ctx.textAlign="left";
+ ctx.fillText("Q = "+Q+" μC",520,120);ctx.fillText("r = "+r+" m",520,155);
+ ctx.fillText("Masofa oshsa, E kamayadi",520,190);
+}
+Q.oninput=calcE;r.oninput=calcE;calcE();
+
+function check(btn,ok){a1.textContent=ok?"✅ To‘g‘ri! Elektr maydon zaryadlarga ta’sir qiladi.":"❌ Noto‘g‘ri. Elektr maydon zaryadlarga ta’sir qiladi."}
+function check2(btn,ok){a2.textContent=ok?"✅ To‘g‘ri! Musbat zaryaddan tashqariga yo‘naladi.":"❌ Noto‘g‘ri. Musbat zaryadda chiziqlar tashqariga yo‘naladi."}
+function check3(btn,ok){a3.textContent=ok?"✅ To‘g‘ri! E = F/q.":"❌ Noto‘g‘ri. To‘g‘ri formula: E = F/q."}
+function copyPrompt(){
+ navigator.clipboard?.writeText(promptText.textContent);
+ copied.textContent=" ✓ Nusxalandi!";
+ setTimeout(()=>copied.textContent="",1800);
+}
+</script>
+</body>
+</html>
